@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div v-bind:title="title">hello vue</div>
+        <input :value="content" /><br>
+        <input v-model="content" />
+        <div>{{content}}</div>
+        <!-- v-bind 属性绑定  v-bind可以缩写为 : -->
+        <!-- 单向绑定：数据界定页面   双向绑定：v-model指令 页面数据同时变化 -->
+        <child>
+            <p>Lee</p>
+            <!-- 插入p标签 -->
+            <p slot="DELL">DELL</p>
+            <p slot="dell">dell</p>
+        </child>
+    </div>
+
+    <script>
+        Vue.component('child', {
+            template: `<div><p>Dell</p>
+            <slot></slot>
+            <slot name="DELL"></slot>
+            <slot name="dell"></slot>
+            </div>`
+                // 显示插入的语句  接收不同的插槽 插槽中设置slot的name 子组件接受
+        })
+        new Vue({
+            el: "#root",
+            data: {
+                title: "this is a vue",
+                content: "this is a vue app"
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

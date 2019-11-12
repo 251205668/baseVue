@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .activated {
+            background: rebeccapurple;
+        }
+        
+        .activate {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- class对象绑定 -->
+        <!-- :class="['activated']"   :class="{activated:true}"  这两种方式都能进行类选择器绑定    -->
+        <div @click="handleclick" :class="{activated:true}">{{content}}</div>
+        <!-- 数组变量形式绑定 -->
+        <div @click="handleclick1" :class="[activate]">{{content}}</div>
+        <div @click="handleclick1" :style="styleobj">{{content}}</div>
+
+        <div v-if="show==='a'">this is{{content}}</div>
+        <div v-else-if="show==='b'">this is not{{content}}</div>
+        <div v-else> is{{content}}</div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#root',
+            data: {
+                content: "asdasd",
+                // isactivated: false,
+                // activated: {
+                //     background: rebeccapurple
+                // },
+                activate: "",
+                show: '',
+                styleobj: {
+                    color: "red"
+                }
+                // activate = " "
+            },
+            methods: {
+                handleclick: function() {
+                    //   this.activate=this.activated==="activated"
+                    // this.activate = !this.activated;
+                },
+                handleclick1: function() {
+                    this.activate = this.activate === "activate" ? " " : "activate";
+                }
+            },
+
+        })
+    </script>
+
+
+</body>
+
+</html>

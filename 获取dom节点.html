@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .activated {
+            background: rebeccapurple;
+        }
+        
+        .activate {
+            color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <!-- class对象绑定 -->
+        <div @click="handleclick" :class="{activated:isactivated}">{{content}}</div>
+        <!-- 数组变量形式绑定 -->
+        <div @click="handleclick1" :class="[activate]">{{content}}</div>
+        <div @click="handleclick1" :style="styleobj">{{content}}</div>
+
+        <div v-if="show==='a'">this is{{content}}</div>
+        <div v-else-if="show==='b'">this is not{{content}}</div>
+        <div v-else> is{{content}}</div>
+        <div ref="div1" @click="handleclick2">hello vue</div>
+        <counter ref="one" @change="handlechange"></counter>
+        <counter ref="two" @change="handlechange"></counter>
+        <div>{{total}}</div>
+        <todo :content1="123"></todo>
+        <!-- <div :content1="123">{{content1}}</div> -->
+    </div>
+    <script>
+        // var todo = {
+        //         template: '<div>{{content1}}</div>',
+        //         props: {
+        //             content1: String
+        //         }
+        //     },
+        var counter = {
+            template: '<div @click="handleclick3">{{number}}</div>',
+            data() {
+                return {
+                    number: 0
+                }
+            },
+            methods: {
+                handleclick3() {
+                    this.number++;
+                    this.$emit("change")
+                }
+            },
+        }
+        var vm = new Vue({
+            el: '#root',
+            // props: {
+            //     content1: String
+            // },
+            components: {
+                counter,
+                // todo
+            },
+            data: {
+                total: 0,
+                content: "asdasd",
+                isactivated: false,
+                activate: "",
+                show: '',
+                styleobj: {
+                    color: "red"
+                }
+                // activate = " "
+            },
+            methods: {
+                handleclick: function() {
+                    this.isactivated = !this.isactivated;
+                },
+                handleclick1: function() {
+                    this.activate = this.activate === "activate" ? " " : "activate";
+                },
+                handleclick2: function() {
+                    console.log(this.$refs.div1.innerHTML);
+                    // ref 引用方式获取到dom  然后this.$refs是全部的dom（下的div1）
+                },
+                handlechange() {
+                    console.log(this.$refs.one);
+                    console.log(this.$refs.two);
+                    // 监听到change发生改变就调用handlechange事件  获取dom进行数据相加
+                    this.total = this.$refs.one.number + this.$refs.two.number;
+                }
+            },
+
+        })
+    </script>
+
+
+</body>
+
+</html>

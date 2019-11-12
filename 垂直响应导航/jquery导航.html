@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./node_modules/rvnm/src/jquery-rvnm-rtl.css">
+</head>
+
+<body>
+    <nav id="navbar" class="">
+        <ul>
+            <li>
+                <span class="spliter">
+                    <i class="fa fa-cart-plus"></i>
+                    Aliquam dictum
+                </span>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-plus-square"></i> Nunc eleifend molestie velit. Morbi lobortis quam eu velit
+                </a>
+                <ul>
+                    <li>
+                        <a href="#">
+                            semper leo
+                        </a>
+                    </li>
+                    <li>
+                        <a>
+                            habitasse platea
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    dictumst
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    Vivamus facilisis
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    In hac habitasse
+                                </a>
+                                <ul>
+                                    <li><a href="#"> platea dictumst </a></li>
+                                    <li><a href="#">Nunc sed lacus</a></li>
+                                    <li><a href="#">euismod gravida </a></li>
+
+                                </ul>
+
+                            </li>
+
+                        </ul>
+
+                    </li>
+                    <li>
+                        <a href="#">
+                            sed placerat ipsum
+                        </a>
+                    </li>
+
+                </ul>
+
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-address-book"></i> ipsum urna sed risus
+                </a>
+            </li>
+            <li>
+                <span class="spliter">
+                    <i class="fa fa-cut"></i>
+                    Maecenas fermentum
+                </span>
+            </li>
+        </ul>
+    </nav>
+    <script>
+        $(function() {
+            var rvnMenu = $("#navbar").rvnm({
+                searchable: true,
+                theme: 'dark-lesb'
+            });
+            rvnMenu.setTheme('dark-doder');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- v-if v-for v-show 指令 -->
+    <div id="root">
+        <div v-if="show">
+            <!-- 使用v-if dom会被删除   使用v-show dom元素会加入display:none样式 -->
+            <h1>{{content}}</h1>
+        </div>
+        <button @click="handleclick">toggle</button>
+        <ul>
+            <li v-for="item of list">{{item}}</li>
+
+        </ul>
+        <ul>
+            <li v-for="(item,index) of list" :key="index">{{item}}</li>
+
+        </ul>
+        <!-- 改进key值的使用  如果这样使用key=index会造成性能浪费 而且vue复用赵成影响 -->
+        <ul>
+            <li v-for="(item1,index1) of list1" :key="item1.id">{{item1.tittle}}---{{index1}}</li>
+
+        </ul>
+
+
+    </div>
+    <script>
+        // splice 删除并替换 (index,num,"") push 添加 pop删除 
+
+        var vm = new Vue({
+            el: "#root",
+            data: {
+                content: "hello vue",
+                show: true,
+                list: [1, 2, 3],
+                list1: [{
+                    id: "01",
+                    tittle: "asdas"
+                }, {
+                    id: "02",
+                    tittle: "xzc"
+                }, {
+                    id: "03",
+                    tittle: "dg"
+
+                }]
+            },
+            methods: {
+                handleclick: function() {
+                    this.show = !this.show;
+                }
+            }
+
+
+        })
+    </script>
+
+</body>
+
+</html>

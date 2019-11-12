@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <component :is="type"></component>
+        <!-- 动态组件 根据is里面的值显示组件 -->
+        <!-- <childone v-if="type==='child-one'"></childone>
+        <childtwo v-if="type==='child-two'"></childtwo> -->
+        <button @click="handleclick">chick</button>
+    </div>
+
+    <script>
+        Vue.component('child-one', {
+            template: '<div v-once>child-one</div>'
+                // v-once 当显示child-one组件时 将他存入内存 等下次用到这个组件就会从内存中取出
+        })
+        Vue.component('child-two', {
+            template: '<div v-once>child-two</div>'
+        })
+        new Vue({
+            el: "#root",
+            data: {
+                type: "child-one",
+                title: "this is a vue",
+                content: "this is a vue app"
+            },
+            methods: {
+                handleclick() {
+                    this.type = (this.type === 'child-one' ? 'child-two' : 'child-one');
+                }
+            },
+
+        })
+    </script>
+
+</body>
+
+</html>

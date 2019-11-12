@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <todo :content="123" content1="g"></todo> -->
+        <todo content2="Dell"></todo>
+        <todo content2="Lee"></todo>
+    </div>
+
+    <script>
+        Vue.prototype.bus = new Vue()
+            // 添加了一个公共属性bus 每一个组件被创建都会有bus属性
+        var todo = {
+            data() {
+                return {
+                    selfcontent: this.content2
+                        // 这里不能直接写content2
+                }
+            },
+            props: {
+                // 组件参数校验
+                // content: [String, Number],
+                // content1: {
+                //     type: String,
+                //     required: true,
+                //     // 校验器 校验参数的长度
+                //     validator: function(value) {
+                //         return (value.length > 5);
+                //     }
+                // },
+                content2: {
+                    type: String
+                }
+
+            },
+            template: '<div @click="handleclick">{{selfcontent}}</div>',
+            methods: {
+                handleclick() {
+                    // alert(this.content2)
+                    this.bus.$emit('change', this.selfcontent)
+                        // change事件触发携带数据content2
+                },
+
+            },
+            mounted() {
+                var this_ = this;
+                this.bus.$on('change', function(msg) {
+                    this_.selfcontent = msg;
+                    // alert(msg)
+                    // 两个子组件都在监听bus上的change事件，当触发change事件后，获得是被点击的子组件的content，这个content都被传递给了两个子组件，所以会触发两次，且是同一个content。
+                })
+            }
+        }
+        var vm = new Vue({
+            el: "#root",
+            components: {
+                todo
+            }
+        })
+    </script>
+</body>
+
+</html>

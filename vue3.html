@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- 计算属性 computed -->
+    <div id="root">
+        <input v-model:value="firstname" />
+        <input v-model:value="lastname" />
+        <div>{{fullname}}</div>
+        <div>{{count}}</div>
+
+    </div>
+    <script>
+        // MVVM M层 数据data层 V层 模板层 VM层操作数据层（ vue自动页面处理数据改变）
+        new Vue({
+            el: "#root",
+            data: {
+                firstname: "",
+                lastname: "",
+                count: 0
+
+            },
+            computed: {
+                // 一个属性由另外的属性计算而来
+                fullname: function() {
+                    return this.firstname + ' ' + this.lastname;
+                }
+            },
+            watch: {
+                // watch 监听器(监听数据的变化 实现业务逻辑) 只要改变firstname lastname count就会加一 
+                firstname: function() {
+                    this.count++;
+                },
+                lastname: function() {
+                    this.count++;
+                }
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

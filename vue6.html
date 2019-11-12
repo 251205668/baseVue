@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input v-model:value="inputvalue" />
+        <button @click="handlesubmit">提交</button>
+
+        <ul>
+            <todo-item v-for="(item,index) of list" :key="index" :content="item" :index="index" @delete="handledelete"> </todo-item>
+            <!-- @delete 监听子组件的delete   一旦监听到子组件的delete事件 就触发父组件的handledelete事件-->
+
+        </ul>
+
+    </div>
+    <script>
+        // 子组件
+        var Todoitem = {
+            props: ['content', 'index'],
+            // props接收组件传递的参数 为数组形式
+            template: "<li @click='handleclick'>{{content}}</li>",
+            // 子组件要传递index给父组件（向外发布） 删除的是哪个下标的组件
+            methods: {
+                handleclick: function() {
+                    this.$emit('delete', this.index);
+                    // $emit 子组件向外发布index
+                }
+            }
+
+        }
+
+        new Vue({
+            el: "#root",
+            components: {
+                // 注册局部组件
+                'todo-item': Todoitem
+            },
+            data: {
+                inputvalue: "",
+                list: []
+
+            },
+            methods: {
+                handlesubmit: function() {
+                    this.list.push(this.inputvalue); //list.push 数组添加值 每次就不会被清空
+                    this.inputvalue = "";
+                },
+                handledelete: function(index) {
+                    this.list.splice(index, 1)
+                        // 删除list对应下标值
+                }
+
+            }
+        })
+    </script>
+</body>
+
+</html>

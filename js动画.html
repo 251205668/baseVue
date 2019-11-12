@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="./velocity.js"></script>
+    <!-- <link rel="stylesheet" href="./animate.css"> -->
+
+
+</head>
+
+<body>
+    <div id="root">
+        <transition name="fade" @before-enter="handlebefore" @enter="handleenter" @after-enter="handleafter">
+            <!-- before-enter 和before-leave  出场动画一样的用法  -->
+            <div v-if="show">{{content}}</div>
+        </transition>
+
+        <button @click="handleclick">chick</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data() {
+                return {
+                    content: "hello vue",
+                    show: true
+                }
+            },
+            methods: {
+                handleclick() {
+                    this.show = !this.show
+                },
+                handlebefore(el) {
+                    // el代表div标签
+                    console.log("before enter");
+                    // el.style.color = "red"
+                    el.style.opacity = 0;
+                },
+                handleenter(el, done) {
+                    // el 整个div标签   done（）代表结束动画 
+                    // setTimeout(() => {
+                    //         el.style.color = "blue"
+                    //     }, 2000),
+                    //     setTimeout(
+                    //         () => {
+                    //             done()
+                    //         }, 4000
+                    //     )
+                    console.log(" entering");
+                    Velocity(el, {
+                            opacity: 1
+                        }, {
+                            duration: 3000,
+                            complete: done
+                        })
+                        // velocity三个参数 第一个el 第二个动画内容 第三个动画执行时间 和动画结束时间
+
+                },
+                handleafter(el) {
+                    // after-enter的回调函数  动画结束时的改变
+                    // el.style.color = "#333"
+                    console.log("动画结束");
+                }
+            },
+
+        })
+    </script>
+
+</body>
+
+</html>

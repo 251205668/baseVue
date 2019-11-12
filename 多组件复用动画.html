@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+        }
+        
+        .v-enter-active,
+        .v-leave-active {
+            transition: opacity 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <transition mode="out-in">
+            <!-- 自定义动画class   mode设置先隐藏再显示 -->
+            <!-- 多元素使用key就可以使用动画 -->
+            <div v-if="show" key="1">{{content}}</div>
+            <div v-else key="2">{{content}}</div>
+        </transition>
+
+        <button @click="handleclick">chick</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data() {
+                return {
+                    content: "hello vue",
+                    show: true
+                }
+            },
+            methods: {
+                handleclick() {
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

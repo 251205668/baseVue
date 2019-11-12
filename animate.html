@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" href="./animate.css">
+    <style>
+        /* 设置动画 和过度同时存在 */
+        
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0
+        }
+        
+        .active {
+            transform-origin: left center;
+            transition: opacity 3s;
+        }
+        
+        .leave {
+            /* transition: opacity 2s; */
+            transform-origin: left center;
+            transition: opacity 3s reverse;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root">
+        <transition type="transition" name="fade" appear enter-active-class="animated tada active" leave-active-class="animated bounceOut leave" appear-active-class="animated tada active">
+            <!-- 自定义动画class  引入animate.css库 显示class里面加如animated 加上动画名    a]ppear设置一刷新就会有动画效果   type="transition" 计算动画以transition为计算 -->
+            <div v-if="show">{{content}}</div>
+        </transition>
+
+        <button @click="handleclick">chick</button>
+    </div>
+
+    <script>
+        new Vue({
+            el: "#root",
+            data() {
+                return {
+                    content: "hello vue",
+                    show: true
+                }
+            },
+            methods: {
+                handleclick() {
+
+                    this.show = !this.show
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

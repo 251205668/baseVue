@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <div v-bind:title="title">hello vue</div>
+        <input :value="content" /><br>
+        <input v-model="content" />
+        <div>{{content}}</div>
+        <div>{{fullname}}</div>
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: "#root",
+            beforeCreate() {
+                console.log("beforecreate");
+            },
+            created() {
+                console.log("created");
+            },
+            beforeMount() {
+                console.log(this.$el);
+                // this.$el 代表的是挂载点最外层元素 包括内容
+                console.log("beforeMount");
+            },
+            mounted() {
+                console.log(this.$el);
+                console.log("Mounted");
+            },
+            beforeDestroy() {
+                console.log("beforedestory");
+            },
+            destroyed() {
+                console.log("destoryed");
+            },
+
+            updated() {
+                console.log("updated");
+            },
+            beforeUpdate() {
+                console.log("beforeupdated");
+            },
+            data: {
+                title: "this is a vue",
+                content: "this is a vue app"
+            },
+            computed: {
+                // fullname: function () {
+                //     return this.tittle + " " + this.name;
+                // },
+                fullname: {
+                    get: function() {
+                        return this.title + ' ' + this.content;
+                    },
+                    set: function(value) {
+                        console.log(value);
+                    }
+                }
+            },
+
+        })
+    </script>
+
+</body>
+
+</html>

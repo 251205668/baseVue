@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <input v-model:value="inputvalue" />
+        <button @click="handlesubmit">提交</button>
+        <!-- <ul>
+            <li v-for="(item,index) of list" :key="index">{{item}}</li>
+        </ul> -->
+        <ul>
+            <todo-item v-for="(item,index) of list" :key="index" :content="item"> </todo-item>
+            <!-- :content 传递组件的参数 v-for循环的内容 -->
+        </ul>
+
+    </div>
+    <script>
+        // 每个组件都能看成是vue的实例 组件中也能书写方法 计算以及各种vue实例属性
+
+
+        // vue的组件注册 vue.component('name', ...) 这里注册的是全局组件
+        // Vue.component('todo-item', {
+        //     template: '<li>item</li>'
+        //         // 注册组件的template只能用单引号 template
+        // });
+
+        // 定义局部组件  然后再vue实例中注册局部组件 增加components属性 （'注册组件名'：定义的组件）
+        var Todoitem = {
+            props: ['content'],
+            // props接收组件传递的参数 为数组形式
+            template: '<li>{{content}}</li>'
+                // 使用传递并接受过来的内容
+        }
+
+        new Vue({
+            el: "#root",
+            components: {
+                // 注册局部组件
+                'todo-item': Todoitem
+            },
+            data: {
+                inputvalue: "",
+                list: []
+
+            },
+            methods: {
+                handlesubmit: function() {
+                    this.list.push(this.inputvalue); //list.push 数组添加值 每次就不会被清空
+                    this.inputvalue = "";
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+</head>
+
+<body>
+    <!-- vue实例的一个挂载点   模板   -->
+    <!-- <div id="root">{{message}}</div> -->
+    <div id="root">
+        <div v-html="content" v-on:click="fun1"></div>
+        <!-- v-html是vue的一个指令显示html内容不会进行转义 -->
+        <!-- v-on指令进行事件绑定  事件调用的函数在vue实例中的methods进行书写   -->
+    </div>
+    <script>
+        //第一个实例
+        new Vue({
+            el: "#root", //绑定一个挂载点  这里和jsdom不一样 是直接绑定元素进行处理
+            // template: '<h1>Hello{{message}}</h1>', //模板定义  就不需要在挂载点上写模板 挂载点内容 双花括号插值表达式
+            data: {
+                message: "hello vue",
+                content: "<h1>asdasd</h1>"
+
+            },
+            methods: {
+                fun1: function() {
+                    alert(123);
+                    this.content = "<h1>hello</h1>";
+                    // vue更改内容不需要去调用dom 它会自动更新dom元素的内容 只需要改变vue实例中的属性即可
+                }
+            }
+
+        })
+    </script>
+
+    <!-- <script type="text/javascript" src="bundle.js" charset="utf-8"></script> -->
+</body>
+
+</html>
